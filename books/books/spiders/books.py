@@ -13,7 +13,6 @@ class BooksSpider(scrapy.Spider):
             price = book.css("p.price_color::text").get().replace("£", "")
             rating = book.css(".star-rating::attr(class)").get().split()[-1]
             book_url = book.css("h3 a::attr(href)").get()
-            print(book_url)
             yield response.follow(
                 book_url,
                 callback=self.parse_book,
@@ -38,7 +37,7 @@ class BooksSpider(scrapy.Spider):
             "price": price,
             "rating": rating,
             "category": category,
-            "availability": availability,
+            "amount_in_stock": availability,
             "upc": upc,
             "description": description,
         }
